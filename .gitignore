@@ -1,0 +1,47 @@
+# Python cache fayllari
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual muhit
+venv/
+.env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environs va maxfiy fayllar
+*.env
+
+# IDE va tahrirchi fayllari
+.vscode/
+.idea/
+
+# Log fayllar
+*.log
+
+# OS tomonidan yaratilgan fayllar
+.DS_Store
+Thumbs.db
+
+# PyInstaller
+*.spec
+build/
+dist/
+
+# Test natijalari
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# PostgreSQL dump yoki zaxira fayllar
+*.sql
+*.sqlite3
+
+# Bot fayllari uchun vaqtinchalik ma'lumotlar
+sessions/
+*.session
