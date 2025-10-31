@@ -69,7 +69,7 @@ def update_task_name(user_id, old_name, new_name):
 
     conn.commit()
     conn.close()
-    return cursor.rowcount > 0  # Agar 1 ta bo‘lsa True qaytaradi
+    return cursor.rowcount > 0  
 
 
 # 🔹 Vazifa holatini (status) o‘zgartirish
