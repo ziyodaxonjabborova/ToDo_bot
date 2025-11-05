@@ -192,7 +192,7 @@ async def delete_task_finish(message: Message, state: FSMContext):
     if result:
         await message.answer("🗑 Task muvaffaqiyatli o'chirildi!", reply_markup=CRUD_BUTTON)
     else:
-        await message.answer("⚠️ Bunday task topilmadi.", reply_markup=BACK_BUTTON)
+        await message.answer("⚠️ Bunday task topilmadi. ⬅️ Back tugmasini bosib bosh menuga qayting va qayta o'chiring", reply_markup=BACK_BUTTON)
 
     await state.clear()
 
