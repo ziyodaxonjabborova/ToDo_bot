@@ -27,11 +27,11 @@ def add_task(user_id, name):
     sql = "INSERT INTO tasks (user_id, name) VALUES (?, ?)"
     with get_connect() as db:
         cur = db.cursor()
-        cur.execute(sql, (user_id, name.strip()))
+        cur.execute(sql, (user_id, name))
         db.commit()
 
 
-# 🔹 Statusga qarab olish (All, Pending, Done)
+# 🔹 Statusga qarab olish
 def get_tasks_by_status(user_id, status):
     with get_connect() as db:
         cur = db.cursor()
@@ -50,34 +50,31 @@ def get_tasks_by_status(user_id, status):
 
 # 🔹 Vazifa nomini o‘zgartirish
 def update_task_name(user_id, old_name, new_name):
-    with get_connect() as db:
-        cur = db.cursor()
-        cur.execute(
-            "UPDATE tasks SET name = ? WHERE user_id = ? AND name = ?",
-            (new_name.strip(), user_id, old_name.strip())
-        )
-        db.commit()
-        return cur.rowcount > 0
+    db = get_connect()
+    cur = db.cursor()
+    cur.execute("UPDATE tasks SET name = ? WHERE user_id = ? AND name = ?", (new_name, user_id, old_name))
+    db.commit()
+    db.close()
+    return cur.rowcount > 0
 
 
-# 🔹 Vazifa holatini (status) o‘zgartirish
+# 🔹 Vazifa holatini o‘zgartirish
 def update_task_status(user_id, task_name, new_status):
-    with get_connect() as db:
-        cur = db.cursor()
-        cur.execute(
-            "UPDATE tasks SET status = ? WHERE user_id = ? AND name = ?",
-            (new_status.lower(), user_id, task_name.strip())
-        )
-        db.commit()
-        return cur.rowcount > 0
+    db = get_connect()
+    cur = db.cursor()
+    cur.execute("UPDATE tasks SET status = ? WHERE user_id = ? AND name = ?", (new_status, user_id, task_name))
+    db.commit()
+    db.close()
+    return cur.rowcount > 0
 
 
 # 🔹 Vazifani o‘chirish
 def delete_task(user_id, task_name):
-    task_name = task_name.strip().lower()
-    with get_connect() as db:
-        cur = db.cursor()
-        sql = "DELETE FROM tasks WHERE user_id = ? AND LOWER(name) = ?"
-        cur.execute(sql, (user_id, task_name))
-        db.commit()
-        return cur.rowcount > 0
+    task_name = task_name.strip()
+    db = get_connect()
+    cur = db.cursor()
+    cur.execute("DELETE FROM tasks WHERE user_id = ? AND LOWER(name) = LOWER(?)", (user_id, task_name))
+    deleted_count = cur.rowcount
+    db.commit()
+    db.close()
+    return deleted_count > 0
